@@ -14,7 +14,7 @@ module.exports = {
       options.no_ready_check = true;
     }
 
-    var rc = redis.createClient(port, host, options);
+    rc = redis.createClient(port, host, options);
 
     rc.on('connect', function() {
       console.log('Connect to redis: %s:%d', host, port);
