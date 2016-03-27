@@ -8,8 +8,9 @@ module.exports = {
   connect(): function(port, host, options, callback) {
     var host = host || "localhost";
     var port = port || 6379;
+    var options = options || {};
 
-    if (options && options.password) {
+    if (options.password) {
       options.no_ready_check = true;
     }
 
@@ -23,15 +24,23 @@ module.exports = {
             callback(err);
           }
         });
+      } else {
+        if (callback) {
+          callback(null);
+        }
       }
     });
   },
 
   getProfile: function(device_id, facebook_id, callback) {
     getUserId(device_id, facebook_id, function(user_id) {
-      rc.hgetall(user_id, function(err, object) {
-        callback(object);
-      });
+      if (rc) {
+        rc.hgetall(user_id, function(err, object) {
+          callback(err, object);
+        });
+      } else {
+        callback("Error: not connect to redis");
+      }
     });
   },
 
@@ -50,7 +59,7 @@ module.exports = {
         user_id = reply;
         if (user_id) {
           rc.set(device_id, user_id);
-          callback(user_id);
+          callback(err, user_id);
         } else {
           rc.get(device_id, function(err, reply) {
             user_id = reply;
@@ -61,7 +70,7 @@ module.exports = {
               rc.set(device_id, user_id);
               rc.set(facebook_id, user_id);
             }
-            callback(user_id);
+            callback(err, user_id);
           });
         }
       });
@@ -72,7 +81,7 @@ module.exports = {
           user_id = uuid.v1();
           rc.set(device_id, user_id);
         }
-        callback(user_id);
+        callback(err, user_id);
       });
     }
   }
