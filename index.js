@@ -1,12 +1,6 @@
 var uuid = require('node-uuid');
 var redis = require('redis');
 
-/**
- * Validate Facebook access token
- *
- * @param	{String} user_id, user_access_token, app_access_token
- * @return callback {bool}
- */
 var rc;
 
 module.exports = {
