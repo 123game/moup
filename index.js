@@ -13,18 +13,23 @@ module.exports = {
 
   connect(): function(port, host, options, callback) {
     var host = host || "localhost";
-    var port = port || ;
+    var port = port || 6379;
+
+    if (options && options.password) {
+      options.no_ready_check = true;
+    }
+
     var rc = redis.createClient(port, host, options);
 
     rc.on('connect', function() {
-      console.log("Connect to redis: %s:%d");
-			if (options && options.password) {
-				rc.auth(options.password, function(err) {
-	        if (callback) {
-	          callback(err);
-	        }
-	      });
-			}
+      console.log('Connect to redis: %s:%d', host, port);
+      if (options && options.password) {
+        rc.auth(options.password, function(err) {
+          if (callback) {
+            callback(err);
+          }
+        });
+      }
     });
   },
 
