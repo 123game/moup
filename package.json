@@ -1,6 +1,6 @@
 {
 	"name": "moup",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Nodejs module that can get/set the profile of mobile user identified by device id and Facebook id",
 	"main": "index.js",
 	"scripts": {
@@ -23,6 +23,6 @@
 	},
 	"dependencies": {
 		"node-uuid": "^1.4.7",
-    "redis": "^2.4.2"
+		"redis": "^2.4.2"
 	}
 }
