@@ -5,7 +5,7 @@ var rc;
 
 module.exports = {
 
-  connect(): function(port, host, options, callback) {
+  connect: function(port, host, options, callback) {
     var host = host || "localhost";
     var port = port || 6379;
     var options = options || {};
