@@ -8,11 +8,7 @@ Nodejs module that can get/set the profile of mobile user identified by device i
 ## Usage
 
 ```js
-var moup = require("moup");
-
-...
-
-moup.connect();
+var moup = require("moup")();
 
 ...
 
